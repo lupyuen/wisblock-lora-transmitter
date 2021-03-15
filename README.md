@@ -1,6 +1,6 @@
 # wisblock-lora-transmitter
 
-Arduino program that transmit LoRa messages with [RAKwireless WisBlock](https://docs.rakwireless.com/Product-Categories/WisBlock/Quickstart/).
+Arduino program that transmits LoRa messages with [RAKwireless WisBlock](https://docs.rakwireless.com/Product-Categories/WisBlock/Quickstart/).
 
 Configured to transmit LoRa messages to [BL602 LoRa Firmware `sdk_app_lora`](https://github.com/lupyuen/bl_iot_sdk/blob/lorarecv/customer_app/sdk_app_lora).
 
