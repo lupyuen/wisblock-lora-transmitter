@@ -117,12 +117,21 @@ void OnTxTimeout(void)
 	Serial.println("OnTxTimeout");
 }
 
+/// Send a 64-byte LoRa packet containing "Hello" followed by values 0, 1, 2, ...
 void send()
 {
+	//  Set the first 5 bytes of the transmit buffer to "Hello"
 	TxdBuffer[0] = 'H';
 	TxdBuffer[1] = 'e';
 	TxdBuffer[2] = 'l';
 	TxdBuffer[3] = 'l';
 	TxdBuffer[4] = 'o';
-	Radio.Send(TxdBuffer, 5);
+
+	//  Fill up the remaining space in the transmit buffer (64 bytes) with values 0, 1, 2, ...
+    for (size_t i = 5; i < sizeof TxdBuffer; i++) {
+        TxdBuffer[i] = i - 5;
+    }
+
+    //  Send the transmit buffer (64 bytes)
+	Radio.Send(TxdBuffer, sizeof TxdBuffer);
 }
