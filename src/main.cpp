@@ -1,4 +1,4 @@
-//  Based on https://github.com/RAKWireless/WisBlock/blob/master/examples/communications/LoRa/LoRaP2P/LoRaP2P_TX/LoRaP2P_TX.ino
+//  Based on https://github.com/RAKWireless/WisBlock/blob/5082329327d723556e3613dc0eabcf399600a258/examples/communications/LoRa/LoRaP2P/LoRaP2P_TX/LoRaP2P_TX.ino
 /**
  * @file LoRaP2P_TX.ino
  * @author rakwireless.com
