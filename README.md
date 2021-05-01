@@ -1,4 +1,4 @@
-# wisblock-lora-transmitter
+# wisblock-lora-transmitter: "lorawan" branch for testing BL602 LoRaWAN Transmitter
 
 Arduino program that transmits LoRa messages with [RAKwireless WisBlock](https://docs.rakwireless.com/Product-Categories/WisBlock/Quickstart/).
 
