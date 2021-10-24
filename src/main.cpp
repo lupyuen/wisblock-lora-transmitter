@@ -51,7 +51,11 @@ void send();
 #define TX_TIMEOUT_VALUE      3000
 
 static RadioEvents_t RadioEvents;
-static uint8_t TxdBuffer[64];
+
+//  NOTE: PineDio USB can receive up to 28 bytes in a message,
+//  because CH341 SPI can't transfer more than 31 bytes in a 
+//  single SPI transfer.
+static uint8_t TxdBuffer[28];
 
 void setup()
 {
@@ -117,7 +121,7 @@ void OnTxTimeout(void)
 	Serial.println("OnTxTimeout");
 }
 
-/// Send a 64-byte LoRa packet containing "Hello" followed by values 0, 1, 2, ...
+/// Send a 28-byte LoRa packet containing "Hello" followed by values 0, 1, 2, ...
 void send()
 {
 	//  Set the first 5 bytes of the transmit buffer to "Hello"
@@ -127,11 +131,18 @@ void send()
 	TxdBuffer[3] = 'l';
 	TxdBuffer[4] = 'o';
 
-	//  Fill up the remaining space in the transmit buffer (64 bytes) with values 0, 1, 2, ...
+	//  Fill up the remaining space in the transmit buffer (28 bytes) with values 0, 1, 2, ...
     for (size_t i = 5; i < sizeof TxdBuffer; i++) {
         TxdBuffer[i] = i - 5;
     }
 
-    //  Send the transmit buffer (64 bytes)
+	//  Dump the transmit buffer
+	printf("send: ");
+	for (int i = 0; i < sizeof TxdBuffer; i++) {
+		printf("%02x ", TxdBuffer[i]); 
+	}
+	printf("\n");
+
+    //  Send the transmit buffer (28 bytes)
 	Radio.Send(TxdBuffer, sizeof TxdBuffer);
 }
