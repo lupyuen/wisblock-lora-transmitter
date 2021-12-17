@@ -132,6 +132,13 @@ void send()
         TxdBuffer[i] = i - 5;
     }
 
-    //  Send the transmit buffer (64 bytes)
+	//  Dump the transmit buffer
+	printf("send: ");
+	for (size_t i = 0; i < sizeof TxdBuffer; i++) {
+		printf("%02x ", TxdBuffer[i]); 
+	}
+	printf("\n");
+	
+	//  Send the transmit buffer (64 bytes)
 	Radio.Send(TxdBuffer, sizeof TxdBuffer);
 }
