@@ -41,9 +41,9 @@ void send();
 
 //  Test sending LoRa Packets to PineDio USB LoRaMAC
 #define TEST_LORAMAC
-#warning Test sending LoRa Packets to PineDio USB LoRaMAC
 
 #ifdef TEST_LORAMAC
+#warning Test sending LoRa Packets to PineDio USB LoRaMAC
 //  bandwidth = 0
 //  datarate  = 10 (SF10)
 //  coderate  = 1
@@ -128,7 +128,7 @@ void setup()
 
 #ifdef TEST_LORAMAC
     //  Set to public sync word 0x3444
-	Radio.SetPublicNetwork(true)
+	Radio.SetPublicNetwork(true);
 #endif  //  TEST_LORAMAC
 
 	send();
