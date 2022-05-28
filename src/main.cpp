@@ -38,6 +38,37 @@ void send();
 // Define LoRa parameters. To transmit LoRa packets to BL602, sync the parameters with
 // https://github.com/lupyuen/bl_iot_sdk/blob/lorarecv/customer_app/sdk_app_lora/sdk_app_lora/demo.c#L41-L77
 // TODO: Change RF_FREQUENCY for your region
+
+//  Test sending LoRa Packets to PineDio USB LoRaMAC
+#define TEST_LORAMAC
+#warning Test sending LoRa Packets to PineDio USB LoRaMAC
+
+#ifdef TEST_LORAMAC
+//  bandwidth = 0
+//  datarate  = 10 (SF10)
+//  coderate  = 1
+//  bandwidthAfc = 0
+//  preambleLen  = 8
+//  symbTimeout  = 9
+//  fixLen       = 0
+//  payloadLen   = 0
+//  crcOn        = 0
+//  freqHopOn    = 0
+//  hopPeriod    = 0
+//  iqInverted   = 1
+//  rxContinuous = 0
+
+#define RF_FREQUENCY          923200000	// Hz
+#define TX_OUTPUT_POWER       22		// dBm
+#define LORA_BANDWIDTH        0		    // [0: 125 kHz, 1: 250 kHz, 2: 500 kHz, 3: Reserved]
+#define LORA_SPREADING_FACTOR 10        // [SF7..SF12]
+#define LORA_CODINGRATE       1		    // [1: 4/5, 2: 4/6,  3: 4/7,  4: 4/8]
+#define LORA_PREAMBLE_LENGTH  8	        // Same for Tx and Rx
+#define LORA_SYMBOL_TIMEOUT   9	        // Symbols
+#define LORA_FIX_LENGTH_PAYLOAD_ON false
+#define LORA_IQ_INVERSION_ON       true
+
+#else
 #define RF_FREQUENCY          923000000	// Hz
 #define TX_OUTPUT_POWER       22		// dBm
 #define LORA_BANDWIDTH        0		    // [0: 125 kHz, 1: 250 kHz, 2: 500 kHz, 3: Reserved]
@@ -47,6 +78,8 @@ void send();
 #define LORA_SYMBOL_TIMEOUT   0	        // Symbols
 #define LORA_FIX_LENGTH_PAYLOAD_ON false
 #define LORA_IQ_INVERSION_ON       false
+#endif  //  TEST_LORAMAC
+
 #define RX_TIMEOUT_VALUE      3000
 #define TX_TIMEOUT_VALUE      3000
 
@@ -92,6 +125,12 @@ void setup()
 					  LORA_SPREADING_FACTOR, LORA_CODINGRATE,
 					  LORA_PREAMBLE_LENGTH, LORA_FIX_LENGTH_PAYLOAD_ON,
 					  true, 0, 0, LORA_IQ_INVERSION_ON, TX_TIMEOUT_VALUE);
+
+#ifdef TEST_LORAMAC
+    //  Set to public sync word 0x3444
+	Radio.SetPublicNetwork(true)
+#endif  //  TEST_LORAMAC
+
 	send();
 }
 
@@ -110,7 +149,7 @@ void loop()
 void OnTxDone(void)
 {
 	Serial.println("OnTxDone");
-	delay(5000);
+	delay(1000);
 	send();
 }
 
@@ -137,11 +176,11 @@ void send()
     }
 
 	//  Dump the transmit buffer
-	printf("send: ");
-	for (int i = 0; i < sizeof TxdBuffer; i++) {
+	printf("send RF_FREQUENCY=%d: ", RF_FREQUENCY);
+	for (size_t i = 0; i < sizeof TxdBuffer; i++) {
 		printf("%02x ", TxdBuffer[i]); 
 	}
-	printf("\n");
+	printf(" ");
 
     //  Send the transmit buffer (28 bytes)
 	Radio.Send(TxdBuffer, sizeof TxdBuffer);
