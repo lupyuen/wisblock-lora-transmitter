@@ -180,7 +180,7 @@ void send()
 	for (size_t i = 0; i < sizeof TxdBuffer; i++) {
 		printf("%02x ", TxdBuffer[i]); 
 	}
-	printf(" ");
+	printf("\n");
 
     //  Send the transmit buffer (28 bytes)
 	Radio.Send(TxdBuffer, sizeof TxdBuffer);
