@@ -128,6 +128,7 @@ void setup()
 
 #ifdef TEST_LORAMAC
     //  Set to public sync word 0x3444
+	//  .pio/libdeps/wiscore_rak4631/SX126x-Arduino/src/radio/sx126x/radio.cpp
 	Radio.SetPublicNetwork(true);
 #endif  //  TEST_LORAMAC
 
