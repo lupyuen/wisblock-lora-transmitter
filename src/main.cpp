@@ -44,6 +44,7 @@ void send();
 
 #ifdef TEST_LORAMAC
 #warning Test sending LoRa Packets to PineDio USB LoRaMAC
+//  frequency = 923.4 MHz
 //  bandwidth = 0
 //  datarate  = 10 (SF10)
 //  coderate  = 1
@@ -58,7 +59,7 @@ void send();
 //  iqInverted   = 1
 //  rxContinuous = 0
 
-#define RF_FREQUENCY          923200000	// Hz
+#define RF_FREQUENCY          923400000	// Hz
 #define TX_OUTPUT_POWER       22		// dBm
 #define LORA_BANDWIDTH        0		    // [0: 125 kHz, 1: 250 kHz, 2: 500 kHz, 3: Reserved]
 #define LORA_SPREADING_FACTOR 10        // [SF7..SF12]
